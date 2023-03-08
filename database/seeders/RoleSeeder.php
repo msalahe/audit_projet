@@ -16,13 +16,13 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach (['Admin', 'Auditor', 'BizDev'] as $role) {
+        foreach (['Admin', 'Auditor', 'BizDev','Lead Auditor'] as $role) {
             DB::table('roles')->updateOrInsert(
                 [
                     'name' => $role,
                 ],
                 [
-                    'id' => Str::orderedUuid(),
+
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]

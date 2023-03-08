@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Role;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -20,7 +21,10 @@ class UserFactory extends Factory
         return [
             'id' => Str::orderedUuid(),
             'full_name' => fake()->firstName() . ' ' . fake()->lastName(),
-            'email' => fake()->unique()->safeEmail()
+            'email' => fake()->unique()->safeEmail(),
+            'role_id' => Role::firstOrCreate([
+                'name' =>  fake()->randomElement(['Admin', 'Auditor', 'BizDev']),
+            ])->id
         ];
     }
 

@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         User::factory()
             ->count(10)
             ->state(new Sequence(
-                fn ($sequence) => ['role_id' => Role::all()->random()->id],
+                fn ($sequence) => ['role_id' => Role::where('name','!=','Lead Auditor')->get()->random()->id],
             ))
             ->create();
     }

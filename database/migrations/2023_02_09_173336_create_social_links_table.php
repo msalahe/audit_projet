@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('social_links', function (Blueprint $table) {
-            $table->enum('rs_name',['Github','Telegram','LinkedIn','Website']);
-            $table->string('rs_link');
-
+        Schema::create('user_social_links', function (Blueprint $table) {
+            $table->id();
             $table->foreignUuid('user_id')->constrained()->onDelete("cascade");
+            $table->enum('rs_name',['Github','Telegram','LinkedIn','Medium','Website','Hackmd','Discord','Twitter']);
+            $table->string('rs_link');
 
             $table->timestamps();
         });
