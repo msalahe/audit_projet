@@ -46,7 +46,7 @@ class GoogleController extends Controller
             auth()->login($finduser);
             $userToken = $finduser->createToken("API_TOKEN")->plainTextToken;
 
-            return redirect()->intended('/?s=' . $userToken);
+            return redirect()->intended('/?s=' . $userToken . '&role='.$finduser->role->name);
         } catch (Exception $e) {
             return redirect()->intended('/login?e=1');
         }

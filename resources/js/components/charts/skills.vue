@@ -23,7 +23,10 @@ const chartOptions = {
 
 const chartData = computed(() => ({
     labels: props.skills.map(skill => skill.name),
-    datasets: [{  label: 'Skills Level',data: props.skills.map(skill => skill.pivot ? skill.pivot.level : null) }]
+    datasets: [{  label: 'Skills Level',
+    data: props.skills.map(skill => skill.pivot ? skill.pivot.level : null) ,
+    backgroundColor: 'rgba(0,0,0,0.5)' // add backgroundColor property here
+}]
 }))
 
 onMounted(() => {

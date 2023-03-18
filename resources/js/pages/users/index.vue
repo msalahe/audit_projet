@@ -60,6 +60,7 @@ const deleteUser = (i) => {
     pageData.user = i
 }
 const editUser = (u) => {
+    console.log(u)
     pageData.edit = true
     pageData.user = u
 }
@@ -115,6 +116,8 @@ const clickCallback = (pageNum) => {
                         </span>
                             </td>
                             <td data-label="Actions">
+                                <router-link :to="`/users/${user.id}`"><i class="far fa-clipboard"></i></router-link>
+
                                 <i class="fas fa-edit mb-2" @click="editUser(user)"></i>
                                 <i class="fas fa-trash text-danger mb-2" @click="deleteUser(i)"></i>
                             </td>

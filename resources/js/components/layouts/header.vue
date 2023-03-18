@@ -1,19 +1,27 @@
 <script setup>
 import {useIssueStore} from '@/stores/issue'
+import {useProjetStore} from '@/stores/projetStore'
+
 import { onMounted,ref} from "vue";
 import { useRouter } from 'vue-router';
 import {useAuthStore} from '@/stores/authuser'
 import vulnurabilites from '@/components/modals/issues/index.vue'
+import projet from '@/components/modals/projet/create.vue'
 
 const router = useRouter()
 const issueStore = useIssueStore()
 const userStore = useAuthStore()
-
+const projetStore = useProjetStore();
+const isAdmin  = ref("");
 const logout =  () =>{
      userStore.logout()
 }
 
 onMounted(async () => {
+
+  userStore.setRole(localStorage.getItem("role"));
+  console.log(userStore.data)
+
 });
 
 
@@ -36,13 +44,14 @@ onMounted(async () => {
         <router-link to="/"  class="nav-link" > Audits </router-link>
         <a  class="nav-link">Settings</a>
         <span class="nav-link" @click="issueStore.toggleIssueModal(false)" >Vulns</span>
-        <router-link to="/users"  class="nav-link" > Auditors/BDs </router-link>
-        <span class="nav-link btn"><i class="fas fa-plus-circle mx-2"></i></span>
+        <router-link to="/users"  class="nav-link" v-if=" userStore.data.role == 'Admin'" > Auditors/BDs </router-link>
+        <span class="nav-link btn"><i class="fas fa-plus-circle mx-2" @click="projetStore.toggleIssueModal(false)"></i></span>
         <span class="nav-link btn"  @click="logout"><i class="fas fa-sign-in-alt mx-2"></i></span>
       </div>
     </div>
   </div>
   <vulnurabilites  v-if="issueStore.data.open" />
+  <projet  v-if="projetStore.data.open" />
 
   </nav>
 </template>

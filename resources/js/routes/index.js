@@ -33,7 +33,7 @@ const router = createRouter({
                     component: projet,
                 },
                 {
-                    path: '/audit',
+                    path: 'audit/:id',
                     name: 'audit',
                     component: audit,
                 },
@@ -54,7 +54,10 @@ const router = createRouter({
                             component: usersShow,
 
                         },
-                    ]
+                    ],
+                    meta : {
+                        roles : ["Admin"]
+                    }
                 },
             ]
         },
@@ -63,12 +66,24 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    console.log(from)
     if(to.query.s){
         localStorage.setItem('token',to.query.s)
+        localStorage.setItem("role",to.query.role)
         window.location.replace('/')
     }
     if (to.name !== 'login' && localStorage.getItem('token') == null) next({ name: 'login' })
     else if (to.name == 'login' && localStorage.getItem('token') != null) next({ name: 'projet' })
     else next()
 })
+router.beforeEach((to, from, next) => {
+    const userRole = localStorage.getItem("role") 
+    const requiredRoles = to.meta.roles || [] 
+  
+    if (requiredRoles.length > 0 && !requiredRoles.includes(userRole)) {
+      next('/403') 
+    } else {
+      next() 
+    }
+  })
 export default router

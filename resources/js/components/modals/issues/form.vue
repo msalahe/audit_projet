@@ -112,7 +112,6 @@
 
 <script setup>
 import { ref, onMounted, reactive, watch, computed } from 'vue';
-import modal from '@/components/modal.vue'
 import { useIssueStore } from '@/stores/issue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
@@ -207,21 +206,7 @@ onMounted(async () => {
 <style scoped src="@/../css/popup.css"></style>
 
 <style scoped>
-.link {
-    cursor: pointer;
-}
 
-.link:hover {
-    color: var(--navActive);
-    text-decoration: underline;
-}
 
-.form-control,
-.form-select {
-    color: var(--whiteColor);
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    background-color: var(--themeBg);
-}</style>
+</style>
 

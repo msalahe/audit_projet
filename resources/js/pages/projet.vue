@@ -164,7 +164,7 @@ watch(
                             <div class="col-xl-10 col-md-10">
                                 <div class="status-label mb-2">{{ c.status.name}}</div>
                                 <div class="card-header ">
-                                <h4><a  class="card-title  text-dark">{{c.name}}</a></h4>
+                                <h4><router-link :to="`/audit/${c.id}`" class="card-title  text-dark"> {{ c.name }} </router-link></h4>
                                     <span class="badge bg-card">{{ c.client }}</span>
                                     <!-- <span class="badge bg-card float-end">23</span> -->
 

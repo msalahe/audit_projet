@@ -3,15 +3,15 @@ import { reactive,readonly } from 'vue';
 import router from '../routes';
 
 export const useAuthStore = defineStore('auth', () => {
-    const data = reactive({ authUser: null})
+    const data = reactive({ authUser: null , role:""})
 
     async function login(email) {
         let login_error = false;
         const email_var = { email: email };
         await axios.get('/sanctum/csrf-cookie')
         const user = await axios.post("/login", email_var).then(user => {
-            localStorage.setItem('token', user.data.authorisation.token);
             data.authUser = user.data.user
+            alert(data);
             setTimeout(function () {
                 router.push('/')
             }, 2000);
@@ -21,6 +21,9 @@ export const useAuthStore = defineStore('auth', () => {
         })
 
         return login_error
+    }
+    async function setRole(dt){
+        data.role = dt
     }
     async function logout() {
         await axios.get("/logout").then(data => {
@@ -36,5 +39,6 @@ export const useAuthStore = defineStore('auth', () => {
         data : readonly(data),
         login,
         logout,
+        setRole
     }
 });
